@@ -1,3 +1,8 @@
+[![pypi](https://img.shields.io/pypi/v/midsummer.svg)](https://pypi.python.org/pypi/morningstar-fund-scraper)
+[![Downloads](https://static.pepy.tech/badge/midsummer)](https://pepy.tech/project/morningstar-fund-scraper) 
+[![Downloads](https://static.pepy.tech/badge/midsummer/month)](https://pepy.tech/project/morningstar-fund-scraper)
+[![versions](https://img.shields.io/pypi/pyversions/pydantic.svg)](https://github.com/morningstar-fund-scraper/morningstar-fund-scraper)
+
 # Morningstar Fund Scraper
 
 **Morningstar Fund Scraper** is a versatile Python package designed to extract financial fund data directly from the
