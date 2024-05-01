@@ -16,6 +16,15 @@ class Fund:
         self.perfid = perfid
 
     def get_nav(self) -> dict:
+        """
+        Fetch the fund's snapshot page, extract the fund name and NAV data, and return them as a dictionary.
+
+        Returns:
+            dict: A dictionary containing the fund name, NAV value, currency, and date.
+
+        Raises:
+            FundException: If the fund name or NAV data cannot be extracted from the HTML content.
+        """
         url = f"{self.BASE_URL}{self.perfid}"
         response = self._fetch_page(url)
         fund_name = self._extract_fund_name(response)
@@ -24,23 +33,26 @@ class Fund:
             "fund": fund_name,
             "nav": nav_data[2],
             "currency": nav_data[1],
-            "the_date": nav_data[0],
+            "date": nav_data[0],
         }
 
-    def _fetch_page(self, url: str) -> str:
+    @staticmethod
+    def _fetch_page(url: str) -> str:
         req = Request(url, headers={"User-Agent": "tutan"})
         with urlopen(req) as response:
             tmp = response.read().decode("utf-8")
             return re.sub(r"\s+", " ", tmp)
 
-    def _extract_fund_name(self, html: str) -> str:
+    @staticmethod
+    def _extract_fund_name(html: str) -> str:
         match = re.search(r"<h1>(.*?)</h1>", html)
         if match:
             return match.group(1)
 
         raise FundException("Error, failed to extract fund name")
 
-    def _extract_nav_data(self, html: str) -> tuple:
+    @staticmethod
+    def _extract_nav_data(html: str) -> tuple:
         match = re.search(
             r"<br \/>([\d\-]+)<\/span><\/td><td class=\"line\"> <\/td><td class=\"line text\">(\w+)([,\d\ ]+)<\/td>",
             html,

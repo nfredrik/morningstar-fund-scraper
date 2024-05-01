@@ -1,3 +1,4 @@
+import os
 from datetime import datetime
 
 import pytest
@@ -6,6 +7,8 @@ from unittest.mock import patch
 from assertpy import assert_that, soft_assertions
 from dateutil.parser import parse
 from morningstar_fund_scraper import Fund, FundException
+
+IN_GITHUB_ACTIONS = os.getenv("GITHUB_ACTIONS") == "true"
 
 
 @pytest.fixture
@@ -36,7 +39,7 @@ def test_get_nav(mock_fetch_page, mock_response):
             "fund": "SEB Rysslandfond C EUR - Lux",
             "nav": "452,35",
             "currency": "SEK",
-            "the_date": "2024-04-29",
+            "date": "2024-04-29",
         }
     )
 
@@ -46,6 +49,9 @@ def test_get_nav_bad_input():
         Fund(perfid=1234)
 
 
+@pytest.mark.skipif(
+    IN_GITHUB_ACTIONS, reason="Do not test this in Github Actions."
+)
 def test_get_nav_real():
     fund = Fund(perfid="F00000PYZ6")
     result = fund.get_nav()
@@ -53,4 +59,4 @@ def test_get_nav_real():
         assert_that(result["fund"]).is_type_of(str)
         assert_that(result["nav"]).is_type_of(str)
         assert_that(result["currency"]).is_type_of(str)
-        assert_that(parse(result["the_date"])).is_type_of(datetime)
+        assert_that(parse(result["date"])).is_type_of(datetime)
