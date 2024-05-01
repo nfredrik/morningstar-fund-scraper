@@ -17,7 +17,6 @@ def mock_response():
         toplist
         halftoplist\" border=\"0\">\r\n\t\t\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t\t\t
         <td>Senaste NAV</td><td>  738,16 SEK</td><td>2018-11-16</td>\r\n\t\t\t\t\t\t\t</tr><tr
-    
         tr><td class="line heading">Andelskurs (NAV)<span class="heading"><br />2024-04-29</span></td><td class="line"> </td><td class="line text">SEK 452,35</td></tr><tr><td class="line heading">Ändring NAV en dag</td><td
     """
 
