@@ -1,0 +1,62 @@
+# This workflow will install Python dependencies, run tests and lint with a variety of Python versions
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+
+name: Python package
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [ "3.12"]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Setup Poetry
+      uses: pronovic/setup-poetry@v2
+      with:
+        version: "1.8.0"
+        plugins: "poetry-dynamic-versioning==1.2.0"
+        cache-venv: "true"
+        cache-poetry: "true"
+        cache-suffix: "000"
+    - name: Install dependencies
+      run: |
+        poetry install --only=dev,main  --no-cache 
+    - name: Black
+      run: |
+        poetry run poe format-check     
+    - name: Lint with flake8
+      run: |
+        # stop the build if there are Python syntax errors or undefined names
+        #flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+        #flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+        poetry run poe lint
+    - name: Test with pytest
+      run: |
+        poetry run poe test
+
+    - name: Upload report
+      uses: actions/upload-artifact@v3
+      with:
+        name: html-report
+        path: report.html   
+
+    - name: HTML Preview
+      id: html_preview
+      uses: pavi2410/html-preview-action@v2
+      with:
+        html_file: 'report.html'    
