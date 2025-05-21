@@ -47,7 +47,7 @@ jobs:
         uv pipx run pytest
 
     - name: Upload report
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: html-report
         path: report.html
