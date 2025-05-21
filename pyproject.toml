@@ -13,5 +13,6 @@ dev = [
     "assertpy>=1.1",
     "black>=25.1.0",
     "pytest>=8.3.5",
+    "pytest-html>=4.1.1",
     "python-dateutil>=2.9.0.post0",
 ]
