@@ -32,19 +32,19 @@ jobs:
 
     - name: Install dependencies
       run: |
-        uv pip install --system --dev
+        uv sync
 
     - name: Black
       run: |
-        uv pipx run black --check .
+        uv run black --check .
 
     - name: Lint with ruff
       run: |
-        uv pipx run ruff check .
+        uv run ruff check .
 
     - name: Test with pytest
       run: |
-        uv pipx run pytest
+        uv run pytest
 
     - name: Upload report
       uses: actions/upload-artifact@v4
