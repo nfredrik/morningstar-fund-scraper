@@ -1,78 +1,17 @@
-[tool.poetry]
+[project]
 name = "morningstar-fund-scraper"
 version = "0.1.0"
-description = "Morningstar fund scraper"
-authors = ["fredrik <nfredrik@hotmail.com>"]
-license = "MIT"
+description = "Add your description here"
 readme = "README.md"
-
-[tool.poetry.dependencies]
-python = "^3.12"
-
-[[tool.poetry.source]]
-name = "midsummer"
-url = "https://pypi.org/simple"
-priority = "primary"
-
-
-[[tool.poetry.source]]
-name = "PyPI"
-priority = "primary"
-
-[tool.pyright]
-reportGeneralTypeIssues = false
-
-[tool.poetry.group.dev.dependencies]
-black = { extras = ["d"], version = "^23.12.0" }
-pre-commit = "^3.6.0"
-flake8 = "^6.1.0"
-poethepoet = "^0.24.4"
-flake8-pyproject = "^1.2.3"
-pytest = "^8.1.1"
-assertpy = "^1.1"
-pytest-html = "^4.1"
-python-dateutil = "^2.9.0.post0"
-
-
-[tool.black]
-line-length = 79
-include = '\.pyi?$'
-exclude = '''
-/(
-    |\.git
-    |\.hg
-    |\.mypy_cache
-    |\.tox
-    |\.venv
-    |\venv
-    |_build
-    |buck-out
-    |build
-    |dist
-    |\.poetry
-    |third_party_libs/
-)/
-'''
-
-[tool.flake8]
-ignore = ["E203", "E266", "E501", "W503", "F403", "F401", "F811"]
-max-line-length = 79
-max-complexity = 18
-select = ["B", "C", "E", "F", "W", "T4", "B9"]
-exclude = [
-    "__pycache__",
-    ".venv",
-    "venv"
+requires-python = ">=3.9"
+dependencies = [
+    "ruff>=0.11.10",
 ]
 
-[tool.poe.tasks]
-test = "pytest --html=report.html"
-format = "black ."
-format-check = "black --check ."
-lint = "flake8 ."
-pre-commit = "pre-commit install"
-
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+[dependency-groups]
+dev = [
+    "assertpy>=1.1",
+    "black>=25.1.0",
+    "pytest>=8.3.5",
+    "python-dateutil>=2.9.0.post0",
+]

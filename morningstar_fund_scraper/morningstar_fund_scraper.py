@@ -2,8 +2,7 @@ import re
 from urllib.request import Request, urlopen
 
 
-class FundException(Exception):
-    ...
+class FundException(Exception): ...
 
 
 class Fund:

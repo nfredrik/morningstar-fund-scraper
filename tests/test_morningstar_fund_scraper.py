@@ -49,9 +49,7 @@ def test_get_nav_bad_input():
         Fund(perfid=1234)
 
 
-@pytest.mark.skipif(
-    IN_GITHUB_ACTIONS, reason="Do not test this in Github Actions."
-)
+@pytest.mark.skipif(IN_GITHUB_ACTIONS, reason="Do not test this in Github Actions.")
 def test_get_nav_real():
     fund = Fund(perfid="F00000PYZ6")
     result = fund.get_nav()
