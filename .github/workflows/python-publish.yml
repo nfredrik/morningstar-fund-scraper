@@ -25,7 +25,8 @@ jobs:
         run: |
           uv sync
       - name: Build package
-        uses: hynek/build-and-inspect-python-package@v2
+        run: |
+          python -m build
 
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
